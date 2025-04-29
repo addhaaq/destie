@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Desti's Birthday Countdown</title>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/css1.css">
+
+  <!-- Tambahan Style Getar -->
+  <style>
+    .shake {
+      animation: shake 0.5s;
+    }
+    @keyframes shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      10% { transform: translate(-1px, -2px) rotate(-1deg); }
+      20% { transform: translate(-3px, 0px) rotate(1deg); }
+      30% { transform: translate(3px, 2px) rotate(0deg); }
+      40% { transform: translate(1px, -1px) rotate(1deg); }
+      50% { transform: translate(-1px, 2px) rotate(-1deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg); }
+      70% { transform: translate(3px, 1px) rotate(-1deg); }
+      80% { transform: translate(-1px, -1px) rotate(1deg); }
+      90% { transform: translate(1px, 2px) rotate(0deg); }
+      100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="lagu" src="./music/hbd.mpeg"></audio>
+<audio id="audioSuccess" src="./music/sukses.mp3"></audio>
+<audio id="audioError" src="./music/error.mp3"></audio>
+
+<div id="page-content" class="container">
+  <div id="jam"></div>
+  <div id="ucapan">
+    <h1 id="judulUcapan"></h1>
+    <p class="isiucapan" id="pesanUcapan"></p>
+  </div>
+
+  <p>Hai <span id="namaUser">Destiee</span>, hari menetasmu kurang dari</p>
+
+  <div class="countdown">
+    <div class="countdown-item">
+      <div class="countdown-number" id="days">00</div>
+      <div class="countdown-label">Hari</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-number" id="hours">00</div>
+      <div class="countdown-label">Jam</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-number" id="minutes">00</div>
+      <div class="countdown-label">Menit</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-number" id="seconds">00</div>
+      <div class="countdown-label">Detik</div>
+    </div>
+  </div>
+
+  <img src="./img/desti.jpg" alt="Special image" class="special-image">
+
+  <a id="gantilink" href="./start.html" class="location-link" target="_blank">JANGAN KLIK SEKARANG!!</a>
+
+  <div class="date-display">PENCET LINK DIATAS PAS HARI <strong>H</strong> YA..!!</div>
+  <div class="message">Wishing you a day as special as you are.</div>
+  <div class="clue-message">With each passing second, I can't wait to celebrate you. May your life tomorrow give you the opportunity to experience what you dream of.</div>
+</div>
+
+<!-- SCRIPT -->
+<script>
+function tampilkanUcapan() {
+  var hari = new Date();
+  var jam = hari.getHours();
+  var judulUcapan = "";
+  var pesanUcapan = "";
+
+  if (jam >= 0 && jam < 12) {
+    judulUcapan = "Selamat Pagi DESTI..!!";
+    pesanUcapan = "Semangat ya aktifitasnya hari ini... ";
+  } else if (jam >= 12 && jam < 15) {
+    judulUcapan = "Selamat Siang DESTIANA!";
+    pesanUcapan = "Jangan lupa bahagia yaa, always keep smile..";
+  } else if (jam >= 15 && jam <= 17) {
+    judulUcapan = "Sore GAESS!!";
+    pesanUcapan = "Masihkah semangat di sore ini??";
+  } else {
+    judulUcapan = "SUGENG DALUU!!";
+    pesanUcapan = "Selamat beristirahat dan selamat tidur.";
+  }
+
+  document.getElementById("judulUcapan").textContent = judulUcapan;
+  document.getElementById("pesanUcapan").textContent = pesanUcapan;
+}
+
+function tampilkanJam() {
+  var sekarang = new Date();
+  var jam = String(sekarang.getHours()).padStart(2, '0');
+  var menit = String(sekarang.getMinutes()).padStart(2, '0');
+  var detik = String(sekarang.getSeconds()).padStart(2, '0');
+  document.getElementById('jam').textContent = jam + ":" + menit + ":" + detik + " WIB";
+}
+
+function updateCountdown() {
+  const targetDate = new Date('MAY 14, 2025 00:00:00 GMT+7');
+  const now = new Date();
+  const diff = targetDate - now;
+
+  if (diff <= 0) {
+    document.getElementById('days').textContent = '00';
+    document.getElementById('hours').textContent = '00';
+    document.getElementById('minutes').textContent = '00';
+    document.getElementById('seconds').textContent = '00';
+
+    let link = document.getElementById("gantilink");
+    link.href = "./start.html";
+    link.textContent = "KALO SEKARANG BOLEH DI KLIK";
+
+    document.getElementById('judulUcapan').textContent = "Happy Birthday, DESTIANA PUTRI CAHYANTI!";
+    document.getElementById('pesanUcapan').textContent = "The wait is over! Today is your special day, All the best for you!";
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById('days').textContent = days.toString().padStart(2, '0');
+  document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+  document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+}
+
+function createHearts() {
+  const colors = ['#ff9a9e', '#fad0c4', '#d23669', '#ffb8b8', '#ffd3b6'];
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.innerHTML = '❤';
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.top = Math.random() * 100 + 'vh';
+    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    heart.style.opacity = Math.random() * 0.5 + 0.3;
+    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+    heart.style.animationDelay = Math.random() * 5 + 's';
+    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+    document.body.appendChild(heart);
+  }
+}
+
+function mintaNama() {
+  const allowedNames = ['destiana', 'desti'];
+
+  Swal.fire({
+    title: 'Masukan namamu..!',
+    input: 'text',
+    imageUrl: 'https://bucindreams.github.io/bunga.gif',
+    imageWidth: 120,
+    imageHeight: 120,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    confirmButtonText: 'Lanjutkan',
+    inputValidator: (value) => {
+      if (!value) {
+        return 'tinggal ngetik destiana/desti doang padahal, malah dikosongi';
+      }
+    },
+    didOpen: () => {
+      document.getElementById('page-content').classList.add('blured');
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      var nama = result.value.trim().toLowerCase();
+      if (allowedNames.includes(nama)) {
+        document.getElementById('namaUser').textContent = result.value;
+        document.getElementById('page-content').classList.remove('blured');
+        document.getElementById('lagu').play();
+        document.getElementById('audioSuccess').play();
+        Swal.fire({
+          icon: 'success',
+          title: 'HAII ' + result.value + '!',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      } else {
+        document.getElementById('audioError').play();
+        document.getElementById('page-content').classList.add('shake');
+        Swal.fire({
+          imageUrl : 'https://dekatutorial.github.io/stiker2_mylove.gif',
+          imageHeight : 120,
+          title: 'Nama Salah! bukan itu yang aku mau',
+          text: 'Kamu bukan Desti? Ini khusus buat Desti ya.',
+        }).then(() => {
+          document.getElementById('page-content').classList.remove('shake');
+          mintaNama();
+        });
+      }
+    }
+  });
+}
+
+window.onload = function() {
+  tampilkanUcapan();
+  tampilkanJam();
+  createHearts();
+  updateCountdown();
+
+  setInterval(tampilkanJam, 1000);
+  setInterval(updateCountdown, 1000);
+
+  mintaNama(); // Panggil swal input nama saat halaman load
+};
+</script>
+
+</body>
+</html>
