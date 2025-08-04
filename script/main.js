@@ -1,7 +1,7 @@
 // main.js
 
 window.addEventListener('load', () => {
-    const tanggalBoleh = new Date('2025-05-14T00:00:00+07:00');
+    const tanggalBoleh = new Date('2026-05-14T00:00:00+07:00');
     const sekarang = new Date();
     const tanggalHariIni = new Date(sekarang.getFullYear(), sekarang.getMonth(), sekarang.getDate());
 
